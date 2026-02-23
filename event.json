@@ -1,0 +1,35 @@
+{
+  "resource": "/lambda-java-hello-world",
+  "path": "/lambda-java-hello-world",
+  "httpMethod": "GET",
+  "headers": {
+    "Accept": "*/*",
+    "Content-Type": "application/json"
+  },
+  "multiValueHeaders": {},
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourceId": "123456",
+    "resourcePath": "/lambda-java-hello-world",
+    "httpMethod": "GET",
+    "extendedRequestId": "request-id",
+    "requestTime": "09/Apr/2015:12:34:56 +0000",
+    "path": "/lambda-java-hello-world",
+    "accountId": "123456789012",
+    "protocol": "HTTP/1.1",
+    "stage": "dev",
+    "domainName": "id.execute-api.us-east-1.amazonaws.com",
+    "requestTimeEpoch": 1428582896000,
+    "requestId": "id=",
+    "identity": {
+      "sourceIp": "127.0.0.1"
+    },
+    "apiId": "1234567890",
+    "defaultResponse": false
+  },
+  "body": null,
+  "isBase64Encoded": false
+}

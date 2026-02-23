@@ -1,24 +1,31 @@
-FROM amazonlinux
+FROM public.ecr.aws/amazonlinux/amazonlinux:latest
 
-# Install GnuCOBOL dependencies
-RUN yum install tar gzip wget gcc make libgmp-dev gmp gmp-devel autoconf -y
+# Install Java 21 and Maven
+RUN yum update -y && \
+    yum install -y java-21-amazon-corretto-devel maven && \
+    yum clean all
 
-# Install GNUCobol
-RUN wget -O gnu-cobol.tar.gz https://nav.dl.sourceforge.net/project/gnucobol/gnucobol/2.2/gnucobol-2.2.tar.gz
-RUN tar zxf gnu-cobol.tar.gz
-WORKDIR gnucobol-2.2
-RUN ./configure --without-db  --without-xml --without-json
-RUN make
-RUN make install
+# Set JAVA_HOME
+ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto
+ENV PATH=$JAVA_HOME/bin:$PATH
 
 WORKDIR /app
-RUN mkdir /app/lib
 
-# Need to copy the dynamically linked libraries
-#RUN cp /lib64/libc.so.6 /app/lib
-RUN cp /usr/local/lib/libcob.so.4 /app/lib
+# Copy the Maven pom.xml and source code
+COPY pom.xml .
+COPY src ./src
 
-# Copy and compile the program
-COPY hello-world.cob .
-RUN cobc -x hello-world.cob
-RUN rm hello-world.cob
+# Build the application with Maven
+RUN mvn clean package
+
+# Create runtime directory
+WORKDIR /var/task
+RUN mkdir -p lib
+RUN cp /app/target/lambda-java-hello.jar .
+
+# Copy bootstrap script for custom runtime
+COPY bootstrap .
+RUN chmod +x bootstrap
+
+# Set the working directory
+WORKDIR /var/task

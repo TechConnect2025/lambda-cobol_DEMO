@@ -2,18 +2,28 @@ Transform: 'AWS::Serverless-2016-10-31'
 
 Resources:
 
-  HelloWorldCobol:
+  HelloWorldJava:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: lambda-cobol-hello-world
-      Description: Lambda Cobol Hello World
-      Runtime: provided
-      Handler: hello-world
-      CodeUri: lambda-cobol.code
+      FunctionName: lambda-java-hello-world
+      Description: Lambda Java 21 Hello World (converted from COBOL)
+      Runtime: java21
+      Handler: com.lambda.HelloWorldHandler
+      CodeUri: lambda-java.code
       PackageType: Zip
+      MemorySize: 256
+      Timeout: 30
+      Environment:
+        Variables:
+          LOG_LEVEL: INFO
       Events:
         GetResource:
           Type: Api
           Properties:
-            Path: /lambda-cobol-hello-world
+            Path: /lambda-java-hello-world
             Method: get
+
+Outputs:
+  HelloWorldJavaFunction:
+    Description: Hello World Java 21 Lambda Function
+    Value: !Ref HelloWorldJava

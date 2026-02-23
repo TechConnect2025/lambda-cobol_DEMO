@@ -5,6 +5,35 @@ report.md
 lib
 lib/**
 
+# Java/Maven build artifacts
+*.class
+*.jar
+*.war
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+.pom.xml.bak
+out/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.code-workspace
+.eclipse/
+
+# SAM builds
+.aws-sam/
+.sam-tests/
+
+# Build
+build/
+dist/
+
 # Created by https://www.gitignore.io/api/macos
 # Edit at https://www.gitignore.io/?templates=macos
 
